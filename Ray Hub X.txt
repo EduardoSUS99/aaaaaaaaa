@@ -1,0 +1,159 @@
+-- Certifique-se de que o executor Delta está ativo antes de executar este script.
+
+if not game or not game.Players or not game.Players.LocalPlayer then
+    warn("Este script só pode ser usado no jogo.")
+    return
+end
+
+-- Criação da Interface Gráfica (GUI)
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local HubTitle = Instance.new("TextLabel") -- Título do Hub
+local AutoFarmTab = Instance.new("TextButton")
+local OthersTab = Instance.new("TextButton")
+local AutoFarmFrame = Instance.new("Frame")
+local OthersFrame = Instance.new("Frame")
+local AutoFarmNPCsButton = Instance.new("TextButton")
+local AutoFarmMasteryButton = Instance.new("TextButton")
+local WalkOnWaterButton = Instance.new("TextButton")
+local FastClickButton = Instance.new("TextButton")
+
+-- Configuração da Interface
+ScreenGui.Name = "CustomGUI"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ResetOnSpawn = false
+
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+MainFrame.Size = UDim2.new(0, 400, 0, 300)
+MainFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
+MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+
+-- Título gigante do hub
+HubTitle.Name = "HubTitle"
+HubTitle.Parent = MainFrame
+HubTitle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+HubTitle.Size = UDim2.new(1, 0, 0.2, 0)
+HubTitle.Position = UDim2.new(0, 0, -0.3, 0)
+HubTitle.Text = "Ray Hub X"
+HubTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+HubTitle.Font = Enum.Font.SourceSansBold
+HubTitle.TextSize = 32
+HubTitle.TextStrokeTransparency = 0.5
+
+Title.Name = "Title"
+Title.Parent = MainFrame
+Title.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+Title.Size = UDim2.new(1, 0, 0.2, 0)
+Title.Text = "Script Manager"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 24
+
+AutoFarmTab.Name = "AutoFarmTab"
+AutoFarmTab.Parent = MainFrame
+AutoFarmTab.Position = UDim2.new(0, 0, 0.2, 0)
+AutoFarmTab.Size = UDim2.new(0.5, 0, 0.1, 0)
+AutoFarmTab.Text = "Auto Farm"
+AutoFarmTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+AutoFarmTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+OthersTab.Name = "OthersTab"
+OthersTab.Parent = MainFrame
+OthersTab.Position = UDim2.new(0.5, 0, 0.2, 0)
+OthersTab.Size = UDim2.new(0.5, 0, 0.1, 0)
+OthersTab.Text = "Outros"
+OthersTab.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+OthersTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+AutoFarmFrame.Name = "AutoFarmFrame"
+AutoFarmFrame.Parent = MainFrame
+AutoFarmFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+AutoFarmFrame.Size = UDim2.new(1, 0, 0.7, 0)
+AutoFarmFrame.Position = UDim2.new(0, 0, 0.3, 0)
+AutoFarmFrame.Visible = true
+
+OthersFrame.Name = "OthersFrame"
+OthersFrame.Parent = MainFrame
+OthersFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+OthersFrame.Size = UDim2.new(1, 0, 0.7, 0)
+OthersFrame.Position = UDim2.new(0, 0, 0.3, 0)
+OthersFrame.Visible = false
+
+-- Botões da aba Auto Farm
+AutoFarmNPCsButton.Name = "AutoFarmNPCsButton"
+AutoFarmNPCsButton.Parent = AutoFarmFrame
+AutoFarmNPCsButton.Size = UDim2.new(0.9, 0, 0.2, 0)
+AutoFarmNPCsButton.Position = UDim2.new(0.05, 0, 0.1, 0)
+AutoFarmNPCsButton.Text = "Auto Farm NPCs (ON)"
+AutoFarmNPCsButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+AutoFarmNPCsButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+AutoFarmMasteryButton.Name = "AutoFarmMasteryButton"
+AutoFarmMasteryButton.Parent = AutoFarmFrame
+AutoFarmMasteryButton.Size = UDim2.new(0.9, 0, 0.2, 0)
+AutoFarmMasteryButton.Position = UDim2.new(0.05, 0, 0.4, 0)
+AutoFarmMasteryButton.Text = "Auto Farm Maestria (ON)"
+AutoFarmMasteryButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+AutoFarmMasteryButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+-- Botões da aba Outros
+WalkOnWaterButton.Name = "WalkOnWaterButton"
+WalkOnWaterButton.Parent = OthersFrame
+WalkOnWaterButton.Size = UDim2.new(0.9, 0, 0.2, 0)
+WalkOnWaterButton.Position = UDim2.new(0.05, 0, 0.1, 0)
+WalkOnWaterButton.Text = "Andar sobre águas (ON)"
+WalkOnWaterButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+WalkOnWaterButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+FastClickButton.Name = "FastClickButton"
+FastClickButton.Parent = OthersFrame
+FastClickButton.Size = UDim2.new(0.9, 0, 0.2, 0)
+FastClickButton.Position = UDim2.new(0.05, 0, 0.4, 0)
+FastClickButton.Text = "Fast Click (ON)"
+FastClickButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+FastClickButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+-- Funções de Alternância de Abas
+AutoFarmTab.MouseButton1Click:Connect(function()
+    AutoFarmFrame.Visible = true
+    OthersFrame.Visible = false
+end)
+
+OthersTab.MouseButton1Click:Connect(function()
+    AutoFarmFrame.Visible = false
+    OthersFrame.Visible = true
+end)
+
+-- Funções dos Botões
+local function toggle(button, variableName)
+    if getgenv()[variableName] then
+        getgenv()[variableName] = false
+        button.Text = button.Text:gsub("ON", "OFF")
+        button.BackgroundColor3 = Color3.fromRGB(100, 50, 50)
+    else
+        getgenv()[variableName] = true
+        button.Text = button.Text:gsub("OFF", "ON")
+        button.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+    end
+end
+
+AutoFarmNPCsButton.MouseButton1Click:Connect(function()
+    toggle(AutoFarmNPCsButton, "AutoFarmNPCs")
+end)
+
+AutoFarmMasteryButton.MouseButton1Click:Connect(function()
+    toggle(AutoFarmMasteryButton, "AutoFarmMastery")
+end)
+
+WalkOnWaterButton.MouseButton1Click:Connect(function()
+    toggle(WalkOnWaterButton, "WalkOnWater")
+end)
+
+FastClickButton.MouseButton1Click:Connect(function()
+    toggle(FastClickButton, "FastClick")
+end)
+
+print("Ray Hub X para Delta iniciado com sucesso!")
